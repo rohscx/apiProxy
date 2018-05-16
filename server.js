@@ -26,8 +26,12 @@ var express = require('express');
 var requestMeraki = require('./request-meraki');
 var path = require('path');
 var bodyParser = require('body-parser');
+var cors = require('cors');
 
 var app = module.exports = express();
+
+// enable cors response for fetch compatibility.
+app.use(cors());
 
 // Development Tools
 /*
