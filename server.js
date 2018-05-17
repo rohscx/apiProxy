@@ -58,7 +58,7 @@ globalLog.on('error', function(request, response) {
 var jsonParser = bodyParser.json();
 
 // API Route - Will be proxied through Meraki Dashboard API
-app.use('/apicem/api', jsonParser, function (req, res){
+app.use('/meraki/api', jsonParser, function (req, res){
   console.log('API request url', req.url);
   console.log('API request headers', req.headers);
   console.log('request body, ', req.body);
