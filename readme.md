@@ -1,9 +1,10 @@
-# Meraki API Express Server
-* Meraki API Request Handler
+# apiProxy
+* API Request Handler
+* Provides cors resonse for fetch()
 * Vue.JS sample static HTML page
 
 ## Overview
-This application provides two core functions, host a website and provide a proxy to the Meraki API.
+This application provides three core functions, host a website, provide a proxy API for mutiple services, and provide the cors response for fetch().
 
 `public` directory will host any HTML files and supporting assets. A sample **Vue JS** application was written in a single HTML file for demo purposes. Use your own front end framework of choice or build out a professional Vue application.
 
@@ -38,9 +39,6 @@ http://localhost:8085/api
 
 
 ## Demo
-
-### Live Demo on Heroku
-https://meraki-dashboard-api-express.herokuapp.com/
 
 The Vue application demonstrates how to access the Meraki API endpoints. 
 
