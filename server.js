@@ -103,7 +103,45 @@ app.use('/meraki/api', jsonParser, function (req, res){
 
 });
 
+// API Route - Will be proxied through Apic-EM API
+app.use('/apicem/api', jsonParser, function (req, res){
+	let apiToken = '';
+	if('X-Auth-Token' in req.headers){
+		apiToken = req.headers['X-Auth-Token'];
+		console.log("New headers sent", apiToken );
+	}else{
+    apiToken = configs.apicToken; 
+	}
+	
+	let options = {
+		qs: req.query,
+		url: configs.apicUrl + req.url,
+		method: req.method,
+		body: JSON.stringify(req.body), 
+		//followAllRedirects: true, // Does not work as intended with PUT,POST,DELETE (returns a [GET] on final location)
+		headers: {
+			'X-Auth-Token': apiToken,
+			'Content-Type': 'application/json'
+		} 
+	}
+	requestMeraki(options, function(err, response, data){
+	if(err){
+		console.log("requestAPIRC-EM err ", err)
+		res.status(response.statusCode).send({
+			message: 'err'
+		 });
+		res.send(err);
+	}
+	console.log('FINAL res.statusCode ',response.statusCode);
+	console.log('FINAL res.body ',response.body);
 
+	res.setHeader('content-type', response.headers['content-type']);
+
+	res.status(response.statusCode).send(data);
+    
+    
+  });
+})
 
 // Home page, default route
 app.use('/', express.static(path.join(__dirname, 'public')))
