@@ -25,6 +25,7 @@ const express = require('express');
 //let request = require('request'); // Does not properly handle Meraki redirects
 const requestMeraki = require('./request-meraki');
 const requestApicEM = require('./request-apicem');
+const requestPrime = require('./request-prime.js');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -174,7 +175,7 @@ app.use(routesObj.prime, jsonParser, function (req, res){
 			'Content-Type': 'application/json'
 		} 
 	}
-	requestApicEM(options, function(err, response, data){
+	requestPrime(options, function(err, response, data){
 	if(err){
 		console.log("requestPrime err ", err)
 		res.status(response.statusCode).send({
